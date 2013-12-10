@@ -3,12 +3,28 @@
 \iffalse
 %</internal>
 %<*readme>
-This work consists of the files:
+----------------------------------------------------------------
+longfigure --- A LaTeX package providing an environment that
+               produces figures that can be broken by \TeX's
+               standard page-breaking algorithm.
+
+               Nearly identical to David Carlisle's |longtable| package,
+               but with some obvious changes to use figures instead of
+               tables. All credit goes to David Carlisle; this package
+               represents small changes to his code and logic.
+               I am responsible for the changes.
+
+E-mail: tim.arnold@sas.com
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+This work consists of the file longfigure.dtx
+and the derived files:
    README (this file)
    longfigure.ins
-   longfigure.dtx
-   longfigure.sty
    longfigure.pdf
+   longfigure.sty
 %</readme>
 %<*internal>
 \fi
@@ -27,22 +43,27 @@ longfigure --- A LaTeX package providing an environment that
                produces figures that can be broken by \TeX's
                standard page-breaking algorithm.
 
-               Nearly identical to David Carlisle's |longtable| package,
-               but with some obvious changes to use figures instead of
-               tables. All credit goes to David, any blame comes to me.
-
 E-mail: tim.arnold@sas.com
 ----------------------------------------------------------------
 \endpreamble
 \postamble
-Copyright (C) 2012 by SAS Institute Inc. <tim.arnold@sas.com>
+Copyright (C) 2014 by SAS Institute Inc. <tim.arnold@sas.com>
 
-This work consists of the files:
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or any later version.
+The latest version of this license is in the file:
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Tim Arnold.
+
+This work consists of the file longfigure.dtx
+and the derived files:
    README (this file)
    longfigure.ins
-   longfigure.dtx
-   longfigure.sty
    longfigure.pdf
+   longfigure.sty
 \endpostamble
 \generate{\file{longfigure.sty}{\from{longfigure.dtx}{longfigure}}}
 %</install>
@@ -58,16 +79,57 @@ This work consists of the files:
 \fi
 %</internal>
 %<*longfigure>
-%    \section{\textsf{\small longfigure} Usage}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{longfigure}[2014/1/06 v1.0]
+%</longfigure>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{\jobname}
+\usepackage[numbered]{hypdoc}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%\GetFileInfo{\jobname.sty}
+% \def\fileversion{v1.0}
+%
+%\title{^^A
+%  The \textsf{longfigure} Package\thanks{^^A
+%    This file describes version \fileversion, last revised \filedate.^^A
+%  }^^A
+%}
+%\author{^^A
+%  Tim Arnold\thanks{E-mail: tim.arnold@sas.com}^^A
+%}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+%\changes{v1.0}{2014/1/06}{First public release}
+%    \section{Usage}
 %    \label{longfigure}
 %    \index{longfigure package|usage}
+%    
+%    The |longfigure| package provides a table-like environment that can display a stream
+%    of subfigures as a single figure, which may break across pages. It does this by
+%    using and relabeling components of the |longtable| package. 
+%    
 %    The |longfigure| package differs  slightly from the well-known |longtable| package
 %    written by David Carlisle. The |longtable| package defines a |longtable| environment,
 %    which produces tables that can be broken by \TeX's standard page-breaking algorithm.
-%    Similarly the |longfigure| package defines a |longfigure| environment which produces
+%    Similarly, the |longfigure| package defines a |longfigure| environment which produces
 %    figures that can be broken by \TeX's standard page-breaking algorithm.
-%
-%
+% 
+%    The internal structure of a long figure is similar to a longtable.
+%    Rows might contain (for example) tables or graphics. Page breaks
+%    may occur only between rows.
+%    
 %     The |longfigure| package differs from the |longtable| package in the following ways:
 %    \begin{itemize}
 %    \item The counters and macros that start with \cs{LT}  are renamed
@@ -90,7 +152,7 @@ This work consists of the files:
 %    lists are typeset.\index{list of outputs, creating|usage}
 %      \end{itemize}
 %
-%      If a counter is specified that does not exist
+%      If a counter is specified that does not exist,
 %      the |tocloft| package is
 %      loaded to create the new counter.\index{tocloft package|usage}
 %
@@ -141,16 +203,44 @@ This work consists of the files:
 %  the second |longfigure|, the \cs{LF@name} macro would contain the value
 %  `Figure 2'.
 %
+%\subsection{Example}
+% The following lines provide a simple example that produces a single figure
+% containing three images and one tabular environment. Each element is a row
+% of the longfigure environment. Page breaks may occur between rows.
+% 
+%\begin{verbatim}
+%\documentclass{book}
+%\usepackage{graphicx}
+%\usepackage{longfigure}
+%
+%\begin{document}
+%  \begin{longfigure}{c}
+%    \caption{My Long Figure}\label{mlfig}\\
+%    \includegraphics[width=3in]{myfig1}\\
+%    \includegraphics[width=3in]{myfig2}\\
+%    \includegraphics[width=3in]{myfig3}\\
+%    \begin{tabular}{ll}
+%      one & two \\
+%      three & four\\
+%    \end{tabular}
+%  \end{longfigure}
+%\end{document}
+%\end{verbatim}
+%
+%In the example, the longfigure specified only a single centered column. Of course,
+%you can specify multiple columns as well and, if needed, use the \cs{multicolumn} 
+%command for more flexibility.
+%
 %    The implementation of the |longfigure| package follows. The comments
 %    describe only the changes from the |longtable| package code. For complete details
 %    about the logic and usage of the environment, see the |longtable| documentation.
 %
-%    \section{\textsf{\small longfigure} Implementation}
+%    \section{Implementation}
 %\iffalse
 %<*longfigure>
 %\fi
 %    \begin{macrocode}
-\ProvidesPackage{longfigure}[2014/01/15 Multi-page Figure Package]
+\ProvidesPackage{longfigure}[2014/01/15 longfigure]
 %    \end{macrocode}
 %    The following statement loads the |xkeyval| package for declaring
 %    and processing package options.
@@ -716,11 +806,12 @@ This work consists of the files:
 %    Wilson, Peter. 2001.
 %    \emph{Glisterings} in TUGboat 22(4), 339--340.
 %
+%\StopEventually{^^A
+%  \PrintChanges
+%  \PrintIndex
+%}
 %
-% \iffalse
+%    \begin{macrocode}
 %</longfigure>
-% \fi
+%    \end{macrocode}
 %\Finale
-%\endinput
-
-

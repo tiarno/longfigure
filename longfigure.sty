@@ -1,5 +1,20 @@
-
-\ProvidesPackage{longfigure}[2012/03/15 Multi-page Figure Package]
+%%
+%% This is file `longfigure.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% longfigure.dtx  (with options: `longfigure')
+%% ----------------------------------------------------------------
+%% longfigure --- A LaTeX package providing an environment that
+%%                produces figures that can be broken by T\kern -.1667em\lower .5ex\hbox {E}\kern -.125emX\spacefactor \@m 's
+%%                standard page-breaking algorithm.
+%% 
+%% E-mail: tim.arnold@sas.com
+%% ----------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{longfigure}[2014/1/06 v1.0]
+\ProvidesPackage{longfigure}[2014/01/15 longfigure]
 \RequirePackage{xkeyval}
 \newcommand*{\LFcounter}{figure}
 \newcommand*{\LFreset}{\@empty}
@@ -436,3 +451,22 @@
 \def\LF@p@ftntext#1{%
   \edef\@tempa{\the\LF@p@ftn\noexpand\footnotetext[\the\c@footnote]}%
   \global\LF@p@ftn\expandafter{\@tempa{#1}}}%
+%% Copyright (C) 2014 by SAS Institute Inc. <tim.arnold@sas.com>
+%% 
+%% This work may be distributed and/or modified under the
+%% conditions of the LaTeX Project Public License (LPPL), either
+%% version 1.3c of this license or any later version.
+%% The latest version of this license is in the file:
+%% http://www.latex-project.org/lppl.txt
+%% 
+%% This work is "maintained" (as per LPPL maintenance status) by
+%% Tim Arnold.
+%% 
+%% This work consists of the file longfigure.dtx
+%% and the derived files:
+%%    README (this file)
+%%    longfigure.ins
+%%    longfigure.pdf
+%%    longfigure.sty
+%%
+%% End of file `longfigure.sty'.
