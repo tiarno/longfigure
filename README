@@ -1,6 +1,7 @@
 ----------------------------------------------------------------
-longfigure --- A LaTeX package providing an environment that
-               produces figures that can be broken by \TeX's
+longfigure --- A LaTeX package providing a table-like environment
+               that can display a stream of subfigures as a single
+               figure that can be broken by \TeX's
                standard page-breaking algorithm.
 
                Nearly identical to David Carlisle's |longtable| package,

@@ -4,8 +4,9 @@
 %</internal>
 %<*readme>
 ----------------------------------------------------------------
-longfigure --- A LaTeX package providing an environment that
-               produces figures that can be broken by \TeX's
+longfigure --- A LaTeX package providing a table-like environment 
+               that can display a stream of subfigures as a single
+               figure that can be broken by \TeX's
                standard page-breaking algorithm.
 
                Nearly identical to David Carlisle's |longtable| package,
@@ -39,8 +40,9 @@ and the derived files:
 \askforoverwritefalse
 \preamble
 ----------------------------------------------------------------
-longfigure --- A LaTeX package providing an environment that
-               produces figures that can be broken by \TeX's
+longfigure --- A LaTeX package providing a table-like environment 
+               that can display a stream of subfigures as a single
+               figure that can be broken by \TeX's
                standard page-breaking algorithm.
 
 E-mail: tim.arnold@sas.com
@@ -116,49 +118,54 @@ and the derived files:
 %    \label{longfigure}
 %    \index{longfigure package|usage}
 %    
-%    The |longfigure| package provides a table-like environment that can display a stream
-%    of subfigures as a single figure, which may break across pages. It does this by
-%    using and relabeling components of the |longtable| package. 
+%    The |longfigure| package uses and relabels components of the
+%    well-known |longtable| package, written by David Carlisle, to
+%    provide a table-like environment that can display a stream
+%    of subfigures as a single figure that can break across pages.
 %    
-%    The |longfigure| package differs  slightly from the well-known |longtable| package
-%    written by David Carlisle. The |longtable| package defines a |longtable| environment,
+%    The |longtable| package defines a |longtable| environment,
 %    which produces tables that can be broken by \TeX's standard page-breaking algorithm.
-%    Similarly, the |longfigure| package defines a |longfigure| environment which produces
+%    Similarly, the |longfigure| package defines a |longfigure| environment, which produces
 %    figures that can be broken by \TeX's standard page-breaking algorithm.
-% 
-%    The internal structure of a long figure is similar to a longtable.
+%    The internal structure of a long figure is similar to a long table.
 %    Rows might contain (for example) tables or graphics. Page breaks
-%    may occur only between rows.
+%    can occur only between rows.
 %    
 %     The |longfigure| package differs from the |longtable| package in the following ways:
 %    \begin{itemize}
-%    \item The counters and macros that start with \cs{LT}  are renamed
-%    to start with \cs{LF} to avoid
-%    namespace conflicts when the two packages are used together.
-%    Note: The generic macros defined in the |longtable| package
-%  (\cs{endfirsthead}, \cs{endhead}, \cs{endfoot}, \cs{endlastfoot}) are
-%  also renamed with \cs{LF} as a prefix.
-%
-%    \item The |longfigure| package supports two additional key-value options:
+%      \item The |longfigure| package supports two additional key-value options:
 %      \begin{itemize}
-%        \item |figname=| specifies the counter for numbering |longfigure| environments.
-%        The default is |figure|, but you can specify
-%             any string. If the counter is not already defined,
-%             it is created.\index{figname option|usage}
+%        \item The |figname=| option specifies the counter for numbering |longfigure| environments.
+%              You can specify any string; the default is |figure|. 
+%              When you specify a |figname=| value for which no counter exists, the
+%              |longfigure| package loads the |tocloft| package and creates the counter.
+%              \index{figname option|usage}
 %
-%       \item |resetby=| specifies a counter (for example, |resetby=chapter|) such
-%    that output numbering is reset with each change in the counter value.
-%    Refer to the |tocloft| package documentation for information about how the
-%    lists are typeset.\index{list of outputs, creating|usage}
+%       \item The |resetby=| option specifies a counter (for example, |resetby=chapter|) such
+%             that output numbering is reset each time the counter value changes.
+%             If a counter is specified that does not exist, the |tocloft| package is
+%             loaded to create the new counter.
+%             \index{tocloft package|usage}%
+%             For information about how the lists are typeset,
+%             \index{list of outputs, creating|usage}%
+%             see the |tocloft| package documentation.
 %      \end{itemize}
-%
-%      If a counter is specified that does not exist,
-%      the |tocloft| package is
-%      loaded to create the new counter.\index{tocloft package|usage}
+%      \item The counters and macros that start with \cs{LT} in the |longtable| package
+%            are renamed to start with \cs{LF} in the |longfigure| pacakge to avoid
+%            namespace conflicts when the two packages are used together.
+%            The generic macros that are defined in the |longtable| package
+%            (\cs{endfirsthead}, \cs{endhead}, \cs{endfoot}, \cs{endlastfoot}) are
+%            also renamed with \cs{LF} as a prefix in the |longfigure| package.
+%            
+%      \item The \cs{LF@name} macro is based on the \cs{fnum@table} macro from 
+%            the |longtable| package. The  \cs{LF@name} macro returns the capitalized 
+%            counter name and value. For example, if the counter is |figure| and the 
+%            macro is processing the second |longfigure|, the \cs{LF@name} macro 
+%            would contain the value ``Figure 2''.
 %
 %  \end{itemize}
-%    You can produce a \emph{List of Figures} using the package defaults
-%    by inserting the following tag in your document at the point where you would like
+%    You can use the |longfigure| package defaults to produce a \emph{List of Figures} 
+%    by inserting the following tag in your document at the point where you want
 %    the list to appear.
 % \iffalse
 %<*example>
@@ -169,14 +176,12 @@ and the derived files:
 % \iffalse
 %</example>
 % \fi
-%
-%    The default counter used to display figures
-%    is the |figure| counter. However, you can specify a different counter.
-%    For example, if you want your
-%    figures to be labeled as `Display', specify |figname=display| when you
-%    load the longfigure package; to display the \emph{List of Displays}, insert the following
-%    command in your document at the point where you would like
-%    the list to appear.
+%    
+%    The default counter used to display figures is the |figure| counter,
+%    but you can specify a different counter. For example, if you want your
+%    figures to be labeled as ``Display'', specify |figname=display| when you
+%    load the |longfigure| package; to display a \emph{List of Displays}, insert the following
+%    command in your document at the point where you want the list to appear.
 % \iffalse
 %<*example>
 % \fi
@@ -186,27 +191,20 @@ and the derived files:
 % \iffalse
 %</example>
 % \fi
-%    When you specify a |figname| for which no counter exists, the
-%    |longfigure| package loads the |tocloft| package
-%    and creates the counter.
-%    If you would like to use more advanced features of the |tocloft| package,
-%    load it before loading |longfigure|. Then the |longfigure|
-%    package will see that your counter specified in
-%    the |figname=| option is already defined and will not attempt to create it.
-%
-%    \textbf{Note:}  An auxiliary file with extension |.lft| is created to contain the information
+%    \textbf{Note:}  If you specify a counter that does not exist,
+%    an auxiliary file with extension |.lft| is created to contain the information
 %    needed to create the list.
+%    
+%    If you want to use more advanced features of the |tocloft| package,
+%    load it before you load the |longfigure| package so that the |longfigure|
+%    package sees that the counters specified by the |figname=| and |resetby=| 
+%    options are already defined and does not attempt to create them.
 %
-%  The \cs{fnum@table} macro from the |longtable| package is replaced with the
-%  \cs{LF@name} macro. It returns the capitalized counter name with the value of
-%  the counter. For example, if the counter is |figure| and the macro is processing
-%  the second |longfigure|, the \cs{LF@name} macro would contain the value
-%  `Figure 2'.
 %
 %\subsection{Example}
-% The following lines provide a simple example that produces a single figure
-% containing three images and one tabular environment. Each element is a row
-% of the longfigure environment. Page breaks may occur between rows.
+% The following lines produce a single figure that contains three images and 
+% one tabular environment. Each element is a row of the |longfigure| environment. 
+% Page breaks can occur between rows.
 % 
 %\begin{verbatim}
 %\documentclass{book}
@@ -227,43 +225,45 @@ and the derived files:
 %\end{document}
 %\end{verbatim}
 %
-%In the example, the longfigure specified only a single centered column. Of course,
-%you can specify multiple columns as well and, if needed, use the \cs{multicolumn} 
-%command for more flexibility.
+%  In this example, the |{c}| argument in the |\begin{longfigure}| command
+%  specifies only a single centered column. You can also specify multiple columns and, 
+%  if needed, use the \cs{multicolumn} command for more flexibility.
 %
-%    The implementation of the |longfigure| package follows. The comments
-%    describe only the changes from the |longtable| package code. For complete details
-%    about the logic and usage of the environment, see the |longtable| documentation.
 %
 %    \section{Implementation}
+%    
+%    This section describes the implementation of the |longfigure| package. 
+%    The comments describe only the changes from the |longtable| package code. 
+%    For complete details about the logic and usage of the environment, 
+%    see Carlisle (2004).
 %\iffalse
 %<*longfigure>
 %\fi
 %    \begin{macrocode}
-\ProvidesPackage{longfigure}[2014/01/15 longfigure]
+\ProvidesPackage{longfigure}[2014/01/06 longfigure]
 %    \end{macrocode}
 %    The following statement loads the |xkeyval| package for declaring
-%    and processing package options.
+%    and processing package options:
 %    \begin{macrocode}
 \RequirePackage{xkeyval}
 %    \end{macrocode}
-%    The following statement defines a new command \cs{LFcounter} to
-%    contain the string |figure|. The
-%    macro is used for testing whether a counter with that name exists:
+%    The following statement defines a new command, \cs{LFcounter}, to
+%    contain the string |figure|. 
+%    Later code tests whether a counter with that name exists:
 %    \begin{macrocode}
 \newcommand*{\LFcounter}{figure}
 %    \end{macrocode}
 %
-%    The following statement defines a new command \cs{LFreset} to contain
-%    the name of the counter
-%    that |longfigure| number should reset within. If no value is given,
-%    the |longfigure|s are numbered consecutively through the document:
+%    The following statement defines a new command, \cs{LFreset}, to contain
+%    the name of the counter within which the |longfigure| number should reset. 
+%    If no value is specified, the long figures are numbered consecutively 
+%    through the document.
 %    \begin{macrocode}
 \newcommand*{\LFreset}{\@empty}
 %    \end{macrocode}
 % \subsection{Options}
-%    The two commands just defined exist to support the
-%    package options |figname=| and |resetby=|:
+%    The \cs{LFcounter} and \cs{LFreset} commands support the
+%    package options |figname=| and |resetby=| as follows:
 %    \begin{macrocode}
 \DeclareOptionX{figname}[figure]{\renewcommand*{\LFcounter}{#1}}
 \DeclareOptionX{resetby}{\renewcommand*{\LFreset}{#1}}
@@ -294,23 +294,28 @@ and the derived files:
 \expandafter\LFProcessOptions\expandafter{\LFcounter}
 %    \end{macrocode}
 %    If a counter is specified that does not exist, \cs{c@}\textit{countername}
-%    is undefined and the |tocloft| package is loaded in order to
+%    is undefined and the |longfigure| package loads the |tocloft| package in order to
 %    use its commands to create the new counters and list.
 %
-%    Thus, the extra package is required only when a new counter
-%    is specified.\index{tocloft package|usage}. Note that this automatic
-%    loading takes place only if the counter specified in the package options is
-%    not defined. You can load the |tocloft| package before loading |longfigure|
-%    and retain all of the flexibility that package offers.  However, you must define the
-%    new counters yourself by using the |tocloft| package command \cs{newlistof}.
-%    You must also define the new list to use the |lft| file for writing
-%    its auxiliary information.
-%    \index{tocloft package|usage}
+%    Thus, the |tocloft| package is required only when a new counter
+%    is specified,
+%    \index{tocloft package|usage}%
+%    and this automatic loading takes place only if the counter that is  specified 
+%    in the package options is not defined.
+%     
+%    You can load the |tocloft| package before loading the |longfigure| package
+%    and retain all of the flexibility that the |tocloft| package offers.  
+%    However, you must define the new counters yourself by using the
+%    \cs{newlistof} command in the |tocloft| package, 
+%    and you must define the new list to use an auxiliary |lft| file where
+%    its auxiliary information is written.
+%    \index{tocloft package|usage}%
+%    
 % \subsection{Utilities}
 % \DescribeMacro{\strcfstr}
-%The following macro, \cs{strcfstr}, is described by Wilson (2001).
-% The purpose of the macro is to check whether two strings, given as arguments, are
-% equal. A new boolean \cs{ifLF@same} contains the result of the test.
+%  The following macro, \cs{strcfstr}, checks whether two strings, which are
+%  provided as arguments, are equal (Wilson, 2001).
+%  A new boolean \cs{ifLF@same} contains the result of the test.
 %    \begin{macrocode}
 \newif\ifLF@same
 \newcommand{\strcfstr}[2]{%
@@ -321,18 +326,18 @@ and the derived files:
     \fi
 }
 %    \end{macrocode}
-%    The following macro \cs{LFupcase} uppercases the first letter of
-%    a string (Lazarides, 2010).
 %  \DescribeMacro{\LFupcase}
+%    The following macro, \cs{LFupcase}, uppercases the first letter of
+%    a string (Lazarides, 2010):
 %    \begin{macrocode}
 \def\LFupcase#1{%
   \def\x##1##2{%
     \MakeUppercase{##1}{##2}}\x#1%
 }
 %    \end{macrocode}
-%    The following macro creates a string to provide a label and number for
-%    an output. It replaces \cs{fnum@table} from the |longtable| package.
-%    It contains the capitalized version of the counter name and the counter
+%    The following macro, \cs{LF@name}, creates a string to provide a label and number for
+%    an output. Analogous to the \cs{fnum@table} macro in the |longtable| package,
+%    it contains the capitalized version of the counter name and the counter
 %    number (for example, |Figure~3|).
 %    \begin{macrocode}
 \def\LF@name{\expandafter\LFupcase%
@@ -341,7 +346,7 @@ and the derived files:
 %    \end{macrocode}
 %    The remainder of this package follows the |longtable| package
 %    almost identically, except that macros, skips, counters, and so on
-%    are prefixed with \cs{LF} instead of \cs{LT} as in the |longtable| package.
+%    use an \cs{LF} prefix instead of the \cs{LT} prefix that the |longtable| package uses.
 %
 %    \begin{macrocode}
 \def\LF@err{\PackageError{longfigure}}
@@ -655,20 +660,18 @@ and the derived files:
   \@gtempa}
 %    \end{macrocode}
 % \subsection{Captioning}
-%    You can easily change how a |longfigure| is captioned by
-%    redefining the \cs{LF@makecaption} macro after loading the package.
+%    You can easily change how a long figure is captioned by
+%    redefining the \cs{LF@makecaption} macro after loading the |longfigure| package.
 %    The following statements show the default definition of the
-%    \cs{LF@makecaption}.
-%
-%
-%
+%    \cs{LF@makecaption}:
+%    
 %    \begin{macrocode}
 \def\LF@caption{%
   \noalign\bgroup
     \@ifnextchar[{\egroup\LF@c@ption\@firstofone}\LF@capti@n}
 %    \end{macrocode}
-%    \cs{LF@caption} begins the process.
-%    If it has an optional argument, it calls \cs{LF@c@ption}; otherwise
+%    The \cs{LF@caption} command begins the process.
+%    If it includes an optional argument, it calls \cs{LF@c@ption}; otherwise
 %    it calls \cs{LF@capti@n}, which then calls \cs{LF@c@ption}.
 %    \begin{macrocode}
 \def\LF@c@ption#1[#2]#3{%
@@ -676,15 +679,18 @@ and the derived files:
   \def\@tempa{#2}%
   \ifx\@tempa\@empty\else
 %    \end{macrocode}
-%    If a List of |longfigure|s is requested:
+%    If a list of long figures is requested, the following code uses the 
+%    previously defined \cs{strcfstr} macro and  \cs{ifLF@same} boolean 
+%    to determine the name of the counter and set the  output file to 
+%    contain the |longfigure| information.
+%    
+%    The code writes to one of the following files.
 %    \begin{itemize}
 %     \item If the counter is |figure|, write to the |lof| file.
 %     \item If the counter is |table|, write to the |lot| file.
 %     \item Otherwise, write to |lft|, a file created here for this purpose.
 %    \end{itemize}
-%    The previously defined macro \cs{strcfstr} and boolean \cs{ifLF@same}
-%    are used here to determine the name of the counter and set the
-%    output file to contain the |longfigure| information.
+% 
 %    \begin{macrocode}
      {\let\\\space
      \strcfstr{\LFcounter}{figure}
@@ -699,15 +705,17 @@ and the derived files:
 }
 %    \end{macrocode}
 %    The \cs{LF@c@ption} macro ends the process when it calls the
-%    \cs{LF@makecaption} macro which typesets the caption.
+%    \cs{LF@makecaption} macro, which typesets the caption.
 %    \begin{macrocode}
 \def\LF@capti@n{%
   \@ifstar
     {\egroup\LF@c@ption\@gobble[]}%
     {\egroup\@xdblarg{\LF@c@ption\@firstofone}}}
 %    \end{macrocode}
-%    The following macro is the one to override for redefining how
-%    the |longfigure| is captioned. The first argument is the name of the counter
+%    
+%    If you want to redefine how the |longfigure| is captioned,
+%    you need to override the following macro.
+%    The first argument is the name of the counter
 %    (for example, |Figure|), the second argument is the number of the counter, and the
 %    third argument is the caption itself.
 %    \begin{macrocode}
@@ -761,9 +769,8 @@ and the derived files:
   \LF@get@widths
   \LF@bchunk}
 %    \end{macrocode}
-%    The following four macros are also defined to have a prefix of \cs{LF}. They do not have
-%    an \cs{LT}prefix in the |longtable| package, but they must be redefined in order
-%    to avoid a namespace clash.
+%    The following four macros do not have an \cs{LT} prefix in the |longtable| package, 
+%    but they must be redefined to have an \cs{LF} prefix in order to avoid a namespace clash;
 %    \begin{macrocode}
 \def\endLFfirsthead{\LF@end@hd@ft\LF@firsthead}
 \def\endLFhead{\LF@end@hd@ft\LF@head}
@@ -787,25 +794,26 @@ and the derived files:
   \global\LF@p@ftn\expandafter{\@tempa{#1}}}%
 %    \end{macrocode}
 %    \subsection{References}
-%
-%    Carlisle, D. 2004.
+%    \begin{description}
+%    \item[\textmd{Carlisle, D. 2004.}]
 %    \emph{The longtable Package}.
-%    Included in the ``Comprehensive \TeX\ Archive Network''. \url{http://ctan.org}.
+%    Included in the ``Comprehensive \TeX\ Archive Network.'' \url{http://ctan.org}.
 %
-%    Lazarides, Y. 2010.
-%    \TeX stackexchange, online forum. \url{http://tex.stackexchange.com/questions/7992}
+%    \item[\textmd{Lazarides, Y. 2010.}]
+%    \TeX stackexchange, online forum. \url{http://tex.stackexchange.com/questions/7992}.
 %
-%    Sch\"opf, R, B. Raichle, and C. Rowley. 2001.
+%    \item[\textmd{Sch\"opf, R., B. Raichle, and C. Rowley. 2001.}]
 %    \emph{A New Implementation of \LaTeX's \texttt{verbatim} and \texttt{verbatim*} Environments}.
 %    Originally appeared in TUGboat 1990, 11(2), 284--296.
 %
-%    Thanh, H., S. Rahtz, H. Hagen, and H. Henkel. 2009.
+%    \item[\textmd{Thanh, H., S. Rahtz, H. Hagen, and H. Henkel. 2009.}]
 %    ``The pdf\TeX\ User's Manual'' Revision 655, corresponding to pdf\TeX\ 1.40.11.
 %    \url{www.tug.org/applications/pdftex}
 %
-%    Wilson, Peter. 2001.
+%    \item[\textmd{Wilson, Peter. 2001.}]
 %    \emph{Glisterings} in TUGboat 22(4), 339--340.
-%
+%    \end{description}
+%    
 %\StopEventually{^^A
 %  \PrintChanges
 %  \PrintIndex
