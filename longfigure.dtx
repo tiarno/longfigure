@@ -137,7 +137,7 @@ and the derived files:
 %      \begin{itemize}
 %        \item The |figname=| option specifies the counter for numbering |longfigure| environments.
 %              You can specify any string; the default is |figure|. 
-%              When you specify a |figname=| value for which no counter exists, the
+%              When you specify a |figname=| value for which no counter already exists, the
 %              |longfigure| package loads the |tocloft| package and creates the counter.
 %              \index{figname option|usage}
 %
@@ -154,19 +154,19 @@ and the derived files:
 %            are renamed to start with \cs{LF} in the |longfigure| pacakge to avoid
 %            namespace conflicts when the two packages are used together.
 %            The generic macros that are defined in the |longtable| package
-%            (\cs{endfirsthead}, \cs{endhead}, \cs{endfoot}, \cs{endlastfoot}) are
+%            (\cs{endfirsthead}, \cs{endhead}, \cs{endfoot}, and \cs{endlastfoot}) are
 %            also renamed with \cs{LF} as a prefix in the |longfigure| package.
 %            
 %      \item The \cs{LF@name} macro is based on the \cs{fnum@table} macro from 
 %            the |longtable| package. The  \cs{LF@name} macro returns the capitalized 
 %            counter name and value. For example, if the counter is |figure| and the 
 %            macro is processing the second |longfigure|, the \cs{LF@name} macro 
-%            would contain the value ``Figure 2''.
+%            would contain the value ``Figure 2.''
 %
 %  \end{itemize}
 %    You can use the |longfigure| package defaults to produce a \emph{List of Figures} 
 %    by inserting the following tag in your document at the point where you want
-%    the list to appear.
+%    the list to appear:
 % \iffalse
 %<*example>
 % \fi
@@ -179,9 +179,9 @@ and the derived files:
 %    
 %    The default counter used to display figures is the |figure| counter,
 %    but you can specify a different counter. For example, if you want your
-%    figures to be labeled as ``Display'', specify |figname=display| when you
+%    figures to be labeled as ``Display,'' specify |figname=display| when you
 %    load the |longfigure| package; to display a \emph{List of Displays}, insert the following
-%    command in your document at the point where you want the list to appear.
+%    command in your document at the point where you want the list to appear:
 % \iffalse
 %<*example>
 % \fi
@@ -234,7 +234,7 @@ and the derived files:
 %    
 %    This section describes the implementation of the |longfigure| package. 
 %    The comments describe only the changes from the |longtable| package code. 
-%    For complete details about the logic and usage of the environment, 
+%    For complete details about the logic and usage of the |longtable| environment, 
 %    see Carlisle (2004).
 %\iffalse
 %<*longfigure>
@@ -249,7 +249,7 @@ and the derived files:
 %    \end{macrocode}
 %    The following statement defines a new command, \cs{LFcounter}, to
 %    contain the string |figure|. 
-%    Later code tests whether a counter with that name exists:
+%    Later code tests whether a counter with that name exists.
 %    \begin{macrocode}
 \newcommand*{\LFcounter}{figure}
 %    \end{macrocode}
@@ -277,7 +277,7 @@ and the derived files:
 \DeclareOptionX{pausing}{\def\LF@warn#1{\LF@err{#1}{This is not really an error}}}
 \ProcessOptionsX
 %    \end{macrocode}
-%    The following statements process the options.
+%    The following statements process the options:
 %    \begin{macrocode}
 \def\LFProcessOptions#1{
   \@ifundefined{c@#1}{%
@@ -293,7 +293,7 @@ and the derived files:
 }
 \expandafter\LFProcessOptions\expandafter{\LFcounter}
 %    \end{macrocode}
-%    If a counter is specified that does not exist, \cs{c@}\textit{countername}
+%    If a counter is specified that does not exist, its name (\cs{c@}\textit{countername})
 %    is undefined and the |longfigure| package loads the |tocloft| package in order to
 %    use its commands to create the new counters and list.
 %
