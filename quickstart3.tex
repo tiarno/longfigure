@@ -1,0 +1,38 @@
+
+\documentclass{book}
+\usepackage[figname=display]{longfigure}
+
+\begin{document}
+\listofdisplay
+\chapter{First Chapter}
+
+See \ref{mlfig} for details.
+
+\begin{longfigure}{c}
+\caption{My Long Figure}\label{mlfig}\\
+\rule{3in}{1in}\\
+\rule{3in}{1in}\\
+\pagebreak
+\rule{3in}{1in}\\
+
+\begin{tabular}{ll}
+one & two \\
+three & four\\
+\end{tabular}
+\end{longfigure}
+
+\chapter{Second Chapter}
+
+See \ref{mlfig2} for details.
+\begin{longfigure}{c}
+\caption{My Second Long Figure}\label{mlfig2}\\
+\rule{3in}{1in}\\
+\rule{3in}{1in}\\
+\rule{3in}{1in}\\
+\begin{tabular}{ll}
+one & two \\
+three & four\\
+\end{tabular}
+\end{longfigure}
+
+\end{document}
