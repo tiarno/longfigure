@@ -73,7 +73,7 @@ and the derived files:
 %<*internal>
 \generate{\file{longfigure.ins}{\from{longfigure.dtx}{install}}}
 \nopreamble\nopostamble
-\generate{\file{README.}{\from{longfigure.dtx}{readme}}}
+\generate{\file{README}{\from{longfigure.dtx}{readme}}}
 \ifx\fmtname\nameofplainTeX
   \expandafter\endbatchfile
 \else
@@ -282,13 +282,13 @@ and the derived files:
 \def\LFProcessOptions#1{
   \@ifundefined{c@#1}{%
       \RequirePackage{tocloft}
-      \expandafter\def\csname list#1name\endcsname{List of #1s}
+      \def\LFuc##1##2{\MakeUppercase{##1}{##2}}
+      \expandafter\def\csname list#1name\endcsname{List of \LFuc#1s}
       \ifx\@empty\LFreset%
         \newlistof{#1}{lft}{\csname list#1name\endcsname}
       \else
         \newlistof[\LFreset]{#1}{lft}{\csname list#1name\endcsname}
       \fi
-    \fi
   }{}%
 }
 \expandafter\LFProcessOptions\expandafter{\LFcounter}
