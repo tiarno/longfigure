@@ -1,0 +1,22 @@
+\documentclass{book}
+\usepackage{graphicx}
+\usepackage{longfigure}
+
+\begin{document}
+  \begin{longfigure}{c}
+    \caption{My Long Figure}\label{mlfig2}\\
+    \hline\endLFfirsthead
+    \caption{continued}\\
+    \hline\endLFhead
+    \hline\endLFfoot
+    \hline\hline\endLFlastfoot
+    \includegraphics[width=3in]{myfig1}\\[1in]
+    \includegraphics[width=3in]{myfig2}\\[1in]
+    \includegraphics[width=3in]{myfig3}\\[1in]
+    \begin{tabular}{ll}
+      one & two \\
+      three & four\\
+    \end{tabular}
+  \end{longfigure}
+\end{document}
+

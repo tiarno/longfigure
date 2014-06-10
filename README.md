@@ -1,40 +1,23 @@
-longfigure
-==========
+----------------------------------------------------------------
+longfigure --- A LaTeX package providing a table-like environment
+               that can display a stream of subfigures as a single
+               figure that can be broken by \TeX's
+               standard page-breaking algorithm.
 
-LaTeX package using longtable internal code to support long figures that can break across pages.
+               Nearly identical to David Carlisle's |longtable| package,
+               but with some obvious changes to use figures instead of
+               tables. All credit goes to David Carlisle; this package
+               represents small changes to his code and logic.
+               I am responsible for the changes.
 
-The `longfigure` package differs slightly from the well-known `longtable` package
-written by David Carlisle. The `longtable` package defines a `longtable` environment,
-which produces tables that can be broken by TeX's standard page-breaking algorithm.
-Similarly the `longfigure` package defines a `longfigure` environment which produces
-figures that can be broken by TeX's standard page-breaking algorithm.
+E-mail: tim.arnold@sas.com
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
 
-The `longfigure` package differs from the `longtable` package in the following ways:
-
-* The counters and macros that start with `\LT`  are renamed to start with `\LF` to avoid
-  namespace conflicts when the two packages are used together.
-  Note: The generic macros defined in the `longtable` package
-  (`\endfirsthead`, `\endhead`, `\endfoot`, `\endlastfoot`) are
-  also renamed with `\LF` as a prefix.
-
-* The `longfigure` package supports two additional key-value options:
-
-    * `figname=` specifies the counter for numbering `longfigure` environments.
-      The default is `figure`, but you can specify any string. 
-      If the counter is not already defined, it is created.
-     
-    * `resetby=` specifies a counter (for example, `resetby=chapter`) such
-      that output numbering is reset with each change in the counter value.
-      Refer to the `tocloft` package documentation for information about how the
-      lists are typeset.
-      
-  If a counter is specified that does not exist, the `tocloft` package is
-  loaded to create the new counter.
-
-  You can produce a *List of Figures* using the package defaults
-  by inserting the following tag in your document at the point where you would like
-  the list to appear:
-  
-    \listoffigures
-
-    
+This work consists of the file longfigure.dtx
+and the derived files:
+   README (this file)
+   longfigure.ins
+   longfigure.pdf
+   longfigure.sty
